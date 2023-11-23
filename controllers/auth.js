@@ -47,7 +47,17 @@ const login = async(req,res)=>{
     }
 }
 
+export const  refreshAccessToken = (req,res)=>{
+    const {refresh} = req.body
+    console.log(req.body)
+    if(!refresh)res.status(400).send({msg:'No se ha encontrado el refresh Token'})
+    const hasExpired =   jwt.hasExpiredToken(refresh)
+    console.log(hasExpired)
+    res.status(200).send('refreshAccessToken')
+
+}
 export const  AuthController ={
     register,
-    login
+    login,
+    refreshAccessToken
 }
