@@ -4,7 +4,7 @@ import http from 'http'
 import  bodyParser  from 'body-parser';
 import { initSocketServer } from "./utilis/index.js"
 import morgan from 'morgan';
-import { authRoutes } from './routes/index.js';
+import { authRoutes,userRoutes } from './routes/index.js';
 const app = express();
 const server = http.createServer(app)
 initSocketServer(server)
@@ -24,8 +24,6 @@ app.use(cors())
 
 //morgan
 app.use(morgan('dev'))
-
 //urls
 app.use("/api",authRoutes);
-
-
+app.use("/api",userRoutes);
