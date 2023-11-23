@@ -18,7 +18,7 @@ const createAccessToken = (user) => {
 
 const createRefreshToken = (user) => {
     const expToken  = new Date()
-    expToken.getMonth(expToken.getMonth() + 1)
+    expToken.setMonth(expToken.getMonth() + 1)
     const payload = {
         token_type: 'access_token',
         user_id: user._id,

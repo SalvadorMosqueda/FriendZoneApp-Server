@@ -7,7 +7,7 @@ const mongoDbUrl = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}`
 
 mongoose.connect(mongoDbUrl).then(() => {
     server.listen(PORT, () => {
-        console.log()
+        console.log(`server Corriendo en el puerto` + PORT)
 
         io.sockets.on("connection", (socket) => {
             console.log("Nuevo usuario en la app")
@@ -19,15 +19,15 @@ mongoose.connect(mongoDbUrl).then(() => {
             socket.on("subscribe", (room) => {
                 socket.join(room)
             })
-            socket.io("unsunscribe", (room) => {
+            socket.on("unsubscribe", (room) => {
                 socket.leave(room);
             })
         })
 
-    })
+    })  
 
 
-}).catch(error => handleError(error));
+}).catch(error => console.log(error));
 
 
 
