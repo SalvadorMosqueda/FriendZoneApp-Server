@@ -63,11 +63,10 @@ const updateUser = async (req, res) => {
 
         console.log(userData)
     }
-
     try {
         const response = await User.findByIdAndUpdate({ _id: user }, userData)
         if (!response) return res.status(404).send({ msg: "Usuario no encontrado" })
-        res.status(200).send({ msg: "Usuario actualizado", response })
+        res.status(200).send({ msg: "Usuario actualizado", userData })
 
     } catch (error) {
         return res.status(500).send({
