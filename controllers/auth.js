@@ -6,7 +6,9 @@ const register = (req, res) => {
     const { email, password } = req.body
     const user = new User({
         email: email.toLowerCase(),
-        password: password
+        password: password,
+        firstName: '',
+        lastName: '',
     })
     //hacheamos password
     const salt = bscrypt.genSaltSync(10)

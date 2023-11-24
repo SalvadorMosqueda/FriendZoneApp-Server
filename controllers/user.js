@@ -56,18 +56,18 @@ const updateUser = async (req, res) => {
 
     if (req.files.avatar) {
         const imagePath = req.files.avatar
-        
-        let  img = getFilePath(imagePath)
+
+        let img = getFilePath(imagePath)
 
         userData.avatar = img
 
         console.log(userData)
     }
 
-    try{
-        const response = await User.findByIdAndUpdate({_id:user}, userData)
-        if(!response) return res.status(404).send({msg:"Usuario no encontrado"})
-        res.status(200).send({msg:"Usuario actualizado",response})
+    try {
+        const response = await User.findByIdAndUpdate({ _id: user }, userData)
+        if (!response) return res.status(404).send({ msg: "Usuario no encontrado" })
+        res.status(200).send({ msg: "Usuario actualizado", response })
 
     } catch (error) {
         return res.status(500).send({
@@ -75,7 +75,6 @@ const updateUser = async (req, res) => {
             message: error.message
         });
     }
-    res.status(200).send({ msg: "updateUser",  userData })
 }
 export const UserController = {
     getMe,
