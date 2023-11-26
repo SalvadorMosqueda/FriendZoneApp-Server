@@ -25,9 +25,32 @@ const createChat = async (req, res) => {
 }
 
 const getMyChats = async (req, res) => {
-    res.status(200).send({ msg: "get my chats" });
+    const {user} = req
+    console.log(user);
+    try {
+        const chats = await Chat.find({ $or: [{ participant_one: user }, { participant_two: user }] }).populate("participant_one").populate("participant_two");
+        return res.status(200).send({ msg: "get my chats", chats });
+    }catch(error) {
+        return res.status(500).send(error);
+    }
+}
+
+const deleteChat =async (req,res)=>{
+    const chat_id =req.params.id
+
+    console.log(chat_id)
+
+    try {
+        const chatDeleted = await Chat.findByIdAndDelete(chat_id);
+        if(!chatDeleted) return res.status(404).send({msg:"chat no encontrado"});
+         return res.status(200).send({msg:'chat eliminado',chatDeleted});
+    } catch (error) {
+        return res.status(500).send({msg:"error en el servidor",error});
+    }
+
 }
 export const chatController = {
     createChat,
-    getMyChats
+    getMyChats,
+    deleteChat
 }
