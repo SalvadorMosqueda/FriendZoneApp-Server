@@ -1,4 +1,4 @@
-import { Chat } from "../models/index.js";
+import { Chat,ChatMessage } from "../models/index.js";
 
 const createChat = async (req, res) => {
     const { participant_one, participant_two } = req.body;
@@ -26,10 +26,16 @@ const createChat = async (req, res) => {
 
 const getMyChats = async (req, res) => {
     const {user} = req
-    console.log(user);
     try {
         const chats = await Chat.find({ $or: [{ participant_one: user }, { participant_two: user }] }).populate("participant_one").populate("participant_two");
-        return res.status(200).send({ msg: "get my chats", chats });
+        
+        const arrayChats =[]
+        for await (const  chat of chats) {
+            const response = await ChatMessage.findOne({chat: chat._id}).sort({createdAt:-1})
+            console.log("inf",response)
+            arrayChats.push({...chat._doc,last_message:response?.createdAt ||null})
+        }
+        return res.status(200).send({ msg: "get my chats", arrayChats });
     }catch(error) {
         return res.status(500).send(error);
     }

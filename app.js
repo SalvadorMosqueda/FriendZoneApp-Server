@@ -4,7 +4,7 @@ import http from 'http'
 import  bodyParser  from 'body-parser';
 import { initSocketServer } from "./utilis/index.js"
 import morgan from 'morgan';
-import { authRoutes,userRoutes,chatRoutes,chatMessageRoutes } from './routes/index.js';
+import { authRoutes,userRoutes,chatRoutes,chatMessageRoutes, groupRoutes } from './routes/index.js';
 
 const app = express();
 const server = http.createServer(app)
@@ -30,3 +30,4 @@ app.use("/api",authRoutes);
 app.use("/api",userRoutes);
 app.use("/api",chatRoutes);
 app.use("/api",chatMessageRoutes);
+app.use("/api",groupRoutes);

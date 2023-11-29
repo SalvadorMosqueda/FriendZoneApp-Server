@@ -12,5 +12,6 @@ api.post("/chat/message", [mdAuth.isAuth], chatMessageController.sendText);
 
 api.post("/chat/message/image",[mdAuth.isAuth,mdUpload],chatMessageController.sendImage)
 
+api.get("/chat/message/:id",[mdAuth.isAuth],chatMessageController.getAll)
 
 export const   chatMessageRoutes = api;
