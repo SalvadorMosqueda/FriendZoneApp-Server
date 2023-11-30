@@ -65,8 +65,6 @@ const getAll = async (req, res) => {
         return res.status(500).send({ msg: "Error en servidor", error })
     }
 
-
-    return res.status(200).send(id)
 }
 
 export const chatMessageController = {
